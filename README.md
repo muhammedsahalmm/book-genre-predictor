@@ -1,4 +1,5 @@
 📚 BOOK GENRE PREDICTOR
+
   This project predicts the genre of a book based on its title and summary using machine learning and natural language processing (NLP) techniques.
   The project includes a trained Naive Bayes classifier, TF-IDF text vectorization, and a user-friendly Streamlit web app for deployment.
 
