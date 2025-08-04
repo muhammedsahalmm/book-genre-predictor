@@ -5,6 +5,7 @@
 
 
 FEATURES
+
   Predicts genres like Fantasy, Horror, Crime Fiction, Science Fiction, and more.
   Uses TF-IDF Vectorizer for feature extraction.
   Trained with a Multinomial Naive Bayes classifier.
@@ -14,6 +15,7 @@ FEATURES
 
 
 TECH STACK
+
   Python
   Pandas, Scikit-learn
   Streamlit
@@ -21,7 +23,9 @@ TECH STACK
 
 
 PROJECT STRUCTURE
+
   book-genre-predictor/
+  
 ├── app.py                  # Streamlit web app
 ├── train.py                # Model training script
 ├── model.pkl               # Saved trained model (excluded via .gitignore)
@@ -32,6 +36,7 @@ PROJECT STRUCTURE
 
 
 WORKINGS
+
   Text Input: The user provides a book title and summary.
   TF-IDF Vectorization: Transforms the input text into feature vectors.
   Prediction: The trained Naive Bayes model predicts the book genre.
@@ -39,6 +44,7 @@ WORKINGS
 
 
 TO RUN LOCALLY
+
   # 1. Clone the repo
   git clone https://github.com/muhammedsahalmm/book-genre-predictor.git
   cd book-genre-predictor
@@ -53,16 +59,19 @@ TO RUN LOCALLY
   # 4. Run the Streamlit app
   streamlit run app.py
 
+
 🌐 Live App
 👉 
 
 
 ACKNOWLEDGEMENT
+
   Dataset: Public book metadata (pre-cleaned manually).
   Libraries: scikit-learn, Streamlit
 
 
 Contact
+
 Muhammed Sahal M M
 Email: [sahalmusawirofficial@gmail.com]
 GitHub: [muhammedsahalmm]
