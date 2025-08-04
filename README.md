@@ -7,10 +7,15 @@
 FEATURES
 
   Predicts genres like Fantasy, Horror, Crime Fiction, Science Fiction, and more.
+  
   Uses TF-IDF Vectorizer for feature extraction.
+  
   Trained with a Multinomial Naive Bayes classifier.
+  
   Simple and interactive Streamlit UI for predictions.
+  
   Hosted and deployed using Streamlit Cloud.
+  
   Clean and modular code structure.
 
 
