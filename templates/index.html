@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Genre Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #1f1f1f, #2c2c2c);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #2e2e2e;
+            padding: 25px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            height: auto;
+        }
+
+        h2 {
+            color: #f48fb1;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #ddd;
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #3b3b3b;
+            color: #f0f0f0;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 80px;
+            max-height: 120px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #f06292;
+            color: white;
+            padding: 10px 20px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ec407a;
+        }
+
+        .prediction-text {
+            color: #81c784;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px 25px;
+                max-width: 95%;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            input[type="text"],
+            textarea {
+                padding: 8px;
+                font-size: 13px;
+            }
+            input[type="submit"] {
+                padding: 9px 18px;
+                font-size: 14px;
+            }
+            .prediction-text {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Book Genre Prediction</h2>
+        <form action="/predict" method="post">
+            <label for="title">Book Title:</label>
+            <input type="text" name="title" id="title" required value="{{ title | default('') }}" placeholder="Enter book title">
+
+            <label for="summary">Summary:</label>
+            <textarea name="summary" id="summary" rows="4" required>{{ summary | default('') }}</textarea>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+            <div class="prediction-text">
+                {{ prediction_text | safe }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
