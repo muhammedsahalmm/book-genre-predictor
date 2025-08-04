@@ -66,7 +66,7 @@ TO RUN LOCALLY
 
 
 🌐 Live App
-👉 
+👉 https://book-genre-predictor-9myuqiqyabaggbnzls3qly.streamlit.app/
 
 
 ACKNOWLEDGEMENT
