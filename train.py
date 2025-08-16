@@ -77,12 +77,14 @@
 #accuracy is 66
 
     #******************************************************************************* 
+    
 import pandas as pd
 import pickle
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report, f1_score
+import numpy as np
 
 # ----------------------------------------------------------
 # STEP 1: Load and Prepare Data
@@ -111,37 +113,50 @@ vectorizer = TfidfVectorizer(
 X_vec = vectorizer.fit_transform(X)
 
 # ----------------------------------------------------------
-# STEP 3: Train-Test Split
+# STEP 3: Cross-Validation
+# ----------------------------------------------------------
+print("Performing 5-Fold Cross-Validation...")
+model = MultinomialNB()
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+cv_scores = cross_val_score(model, X_vec, y, cv=cv, scoring='f1_macro')
+print("Cross-Validation Macro F1 Scores:", cv_scores)
+print("Mean CV Macro F1 Score:", np.mean(cv_scores))
+
+# ----------------------------------------------------------
+# STEP 4: Train-Test Split (for final model training)
 # ----------------------------------------------------------
 X_train, X_test, y_train, y_test = train_test_split(
-    X_vec, y, test_size=0.3, random_state=42
+    X_vec, y, test_size=0.3, random_state=42, stratify=y
 )
 
 # ----------------------------------------------------------
-# STEP 4: Model Training (Multinomial Naive Bayes)
+# STEP 5: Final Model Training
 # ----------------------------------------------------------
-print("Training Naive Bayes classifier...")
-model = MultinomialNB()
+print("Training final Naive Bayes classifier...")
 model.fit(X_train, y_train)
 
 # ----------------------------------------------------------
-# STEP 5: Model Evaluation
+# STEP 6: Final Model Evaluation
 # ----------------------------------------------------------
-print("Evaluating model...")
+print("Evaluating final model on test set...")
 y_pred = model.predict(X_test)
 report = classification_report(y_test, y_pred, zero_division=0)
 macro_f1 = f1_score(y_test, y_pred, average='macro')
 
-print("Model Evaluation:\n", report)
-print("Macro F1 Score:", macro_f1)
+print("Test Set Evaluation:\n", report)
+print("Test Set Macro F1 Score:", macro_f1)
 
 # Save report to file
 with open("report.txt", "w") as f:
+    f.write("Cross-Validation Macro F1 Scores: " + str(cv_scores) + "\n")
+    f.write(f"Mean CV Macro F1 Score: {np.mean(cv_scores):.4f}\n\n")
+    f.write("Test Set Evaluation:\n")
     f.write(report)
-    f.write(f"\nMacro F1 Score: {macro_f1:.4f}\n")
+    f.write(f"\nTest Set Macro F1 Score: {macro_f1:.4f}\n")
 
 # ----------------------------------------------------------
-# STEP 6: Save Model and Vectorizer
+# STEP 7: Save Model and Vectorizer
 # ----------------------------------------------------------
 print("Saving model and vectorizer...")
 with open("model.pkl", "wb") as f:
